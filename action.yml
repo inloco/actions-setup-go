@@ -15,7 +15,6 @@ runs:
       go-version: ${{ inputs.go-version }}
 
   - name: Cache Go dependencies
-    if: inputs.cache
     uses: inloco/actions-cache@HEAD
     with:
       path: |
