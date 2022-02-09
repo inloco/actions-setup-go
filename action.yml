@@ -1,0 +1,23 @@
+name: Setup Go
+description: Setup Go SDK
+author: Incognia
+inputs:
+  go-version:
+    description: "The Go version to set up. Takes a whole or semver Java version. See examples of supported syntax in actions/setup-go's README"
+    required: true
+
+runs:
+  using: composite
+  steps:
+  - name: Setup Go proper
+    uses: actions/setup-go@v2
+    with:
+      go-version: ${{ inputs.go-version }}
+
+  - name: Cache Go dependencies
+    uses: inloco/actions-cache@HEAD
+    with:
+      path: |
+        /go/pkg/mod
+      key: ${{ runner.os }}-go-dependencies-${{ hashFiles('go.sum') }}
+      restore-keys: ${{ runner.os }}-go-dependencies-
